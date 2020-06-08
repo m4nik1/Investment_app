@@ -2,4 +2,4 @@
 
 Currently this is what it looks like:
 
-![image](screenshots/UI.png)
+![image](Screenshots/UI.png)
