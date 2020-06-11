@@ -1,15 +1,24 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import React from 'react'
+import { View, Text, TextInput, StyleSheet, TouchableWithoutFeedback, Keyboard, Button } from 'react-native'
 
-import Input from './components/input'
-import Card from './components/Card'
+import Card from '../components/Card';
+import Input from '../components/input';
+import { useState } from 'react';
 
 const Home = props => {
+
+   //const [addScreen, setAddScreen] = useState(false);
+
+  // if (addScreen) {
+  //   () => props.AddScreen(addScreen)
+  // }
+
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Input style={styles.search} returnKeyType='search' placeholder='Search' />
+          <Button title='Add' onPress={() => props.screenChange(true)}/>
         </View>
         <Card style={styles.card}>
           <Text style={styles.name}>Stock Name</Text>
@@ -27,6 +36,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginTop: 80,
     marginLeft: 20,
+    flexDirection: 'row',
   },
   search: {
     height: 20,
@@ -49,3 +59,5 @@ const styles = StyleSheet.create({
     width: 150
   },
 });
+
+export default Home;

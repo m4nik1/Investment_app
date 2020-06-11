@@ -1,12 +1,21 @@
-import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
-import Input from './components/input'
-import Home from './Screen/HomeScreen'
-import Card from './components/Card'
+import React, {useState} from 'react';
+import { StyleSheet, View, TextInput } from 'react-native';
+import Home from './Screen/HomeScreen';
+import AddScreen from './Screen/AddScreen';
 
 export default function App() {
-  let content = <Home />
+
+  const [screen, setScreen] = useState();
+
+  const screenChange = (screenBool) => {
+    setScreen(screenBool)
+  };
+
+  let content = <Home screenChange={screenChange}/>
+
+  if (screen) {
+    content = <AddScreen />
+  }
 
   return (
     <View style={styles.container}>
