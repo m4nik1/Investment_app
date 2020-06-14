@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, View, TextInput } from 'react-native';
+import * as SQLite from 'expo-sqlite'
+
 import Home from './Screen/HomeScreen';
 import AddScreen from './Screen/AddScreen';
 
 export default function App() {
 
+  const db = SQLite.openDatabase('db.db')
+
   const [screen, setScreen] = useState();
+
+
 
   const screenChange = (screenBool) => {
     setScreen(screenBool)
