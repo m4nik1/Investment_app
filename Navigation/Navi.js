@@ -8,5 +8,7 @@ import Home from '../Screen/HomeScreen'
 
 const Navigation = createStackNavigator({
     Home: Home,
-    AddScreen: AddScreen
+    Add: AddScreen
 })
+
+export default createAppContainer(Navigation);

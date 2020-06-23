@@ -13,7 +13,7 @@ const Home = props => {
         <View style={styles.inputContainer}>
           <Input style={styles.search} returnKeyType='search' placeholder='Search' />
           <Button title='Add' onPress={() => {
-            props.navigation.navigate('AddScreen')
+            props.navigation.navigate('Add')
           }} />
         </View>
         <Card style={styles.card}>

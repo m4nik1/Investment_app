@@ -4,6 +4,7 @@ import * as SQLite from 'expo-sqlite'
 
 import Home from './Screen/HomeScreen';
 import AddScreen from './Screen/AddScreen';
+import Navigation from './Navigation/Navi'
 
 export default function App() {
 
@@ -25,7 +26,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {content}
+      <Navigation />
     </View>
   );
 }
