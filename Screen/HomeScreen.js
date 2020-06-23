@@ -7,18 +7,14 @@ import { useState } from 'react';
 
 const Home = props => {
 
-   //const [addScreen, setAddScreen] = useState(false);
-
-  // if (addScreen) {
-  //   () => props.AddScreen(addScreen)
-  // }
-
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
           <Input style={styles.search} returnKeyType='search' placeholder='Search' />
-          <Button title='Add' onPress={() => props.screenChange(true)}/>
+          <Button title='Add' onPress={() => {
+            props.navigation.navigate('AddScreen')
+          }} />
         </View>
         <Card style={styles.card}>
           <Text style={styles.name}>Stock Name</Text>
