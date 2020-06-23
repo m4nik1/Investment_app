@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Button, Alert, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 import Input from '../components/input';
 import { AntDesign } from '@expo/vector-icons'
-import * as SQLite from 'expo-sqlite' 
+import * as SQLite from 'expo-sqlite'
 
 const AddScreen = props => {
 
@@ -12,7 +12,7 @@ const AddScreen = props => {
   const [shares, setShares] = useState('');
   const [price, setPrice] = useState('');
 
-    // after this app is done with the return statement this useEffect 
+  // after this app is done with the return statement this useEffect 
   // is called after this
   useEffect(() => {
     db.transaction(tx => {
@@ -22,7 +22,7 @@ const AddScreen = props => {
     });
   }, []);
 
-  function insertData () {
+  function insertData() {
     db.transaction(tx => {
       tx.executeSql(
         `Insert into items (symbol, shares, price) values (${symbol}, ${shares}, ${price});`
@@ -45,13 +45,16 @@ const AddScreen = props => {
 
   const readValue = () => {
     db.transaction(tx => {
-      'select * from items'
-    });
+      tx.executeSql("select * from items")
+    },
+      null
+    )
   }
-  console.log({readValue})
 
-  return(
-    <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss()}}>
+  console.log({ readValue })
+
+  return (
+    <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
       <View style={styles.screen}>
         <View style={styles.symbolView}>
           <Text style={styles.symbolText}>Stock Symbol</Text>
@@ -63,7 +66,7 @@ const AddScreen = props => {
         </View>
         <View style={styles.priceView}>
           <Text style={styles.priceText}>Price</Text>
-          <TextInput style={styles.priceInput} placeholder='$1' value={price} onChangeText={priceHandler}/>
+          <TextInput style={styles.priceInput} placeholder='$1' value={price} onChangeText={priceHandler} />
         </View>
         <Button title='Submit' style={styles.submit} onPress={insertData} />
       </View>
