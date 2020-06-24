@@ -6,21 +6,12 @@ import * as SQLite from 'expo-sqlite'
 
 const AddScreen = props => {
 
-  const db = SQLite.openDatabase('db.db')
-
   const [symbol, setSymbol] = useState('');
   const [shares, setShares] = useState('');
   const [price, setPrice] = useState('');
 
   // after this app is done with the return statement this useEffect 
   // is called after this
-  useEffect(() => {
-    db.transaction(tx => {
-      tx.executeSql(
-        "create table if not exists items (symbol, shares, price, primary key not null);"
-      );
-    });
-  }, []);
 
   function insertData() {
     db.transaction(tx => {
