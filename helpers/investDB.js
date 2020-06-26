@@ -42,7 +42,7 @@ export const fetchInvestment = () => {
     const promise = new Promise((resolve, reject) => {
         db.transaction(tx => {
             tx.executeSql('select * from items',
-                [symbol, shares, price],
+                [],
                 (_, result) => {
                     resolve(result);
                 },
