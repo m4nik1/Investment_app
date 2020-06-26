@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite'
 import Home from './Screen/HomeScreen';
 import AddScreen from './Screen/AddScreen';
 import Navigation from './Navigation/Navi'
-import { investDB } from './helpers/investDB'
+import { investDB, fetchInvestment } from './helpers/investDB'
 
 investDB()
   .then(() => {

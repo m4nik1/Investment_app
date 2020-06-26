@@ -5,7 +5,20 @@ import Card from '../components/Card';
 import Input from '../components/input';
 import { useState } from 'react';
 
+import { fetchInvestment} from '../helpers/investDB'
+
 const Home = props => {
+
+  const fetchInfo = async () => {
+    try {
+      const dbFetch = await fetchInvestment();
+      console.log(dbFetch)
+      console.log('Data has been fetched, my good sir')
+    } catch (err) {
+      console.log('There was an error fetch the data, sir')
+      console.log(err)
+    }
+  }
 
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
@@ -19,6 +32,7 @@ const Home = props => {
         <Card style={styles.card}>
           <Text style={styles.name}>Stock Name</Text>
           <Input style={styles.graph} />
+          <Button title='Fetch Investment' onPress={fetchInfo} />
         </Card>
       </View>
     </TouchableWithoutFeedback>

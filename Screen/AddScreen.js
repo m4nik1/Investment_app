@@ -4,6 +4,10 @@ import Input from '../components/input';
 import { AntDesign } from '@expo/vector-icons'
 import * as SQLite from 'expo-sqlite'
 
+import { insertInvestment } from '../helpers/investDB'
+
+
+
 const AddScreen = props => {
 
   const [symbol, setSymbol] = useState('');
@@ -13,14 +17,20 @@ const AddScreen = props => {
   // after this app is done with the return statement this useEffect 
   // is called after this
 
-  function insertData() {
-    db.transaction(tx => {
-      tx.executeSql(
-        `Insert into items (symbol, shares, price) values (${symbol}, ${shares}, ${price});`
-      )
-    });
-    Alert.alert('Information Submitted');
+  //const dbResult = await insertInvestment(APPL, 2, $189);
+
+  const insertData = async () => {
+    try {
+      const dbResult = await insertInvestment('APPL', 1, '$189')
+      console.log(dbResult)
+      console.log('investment has been inserted, my guy')
+    } catch (err) {
+      console.log('there was an error, my guy')
+      console.log(err);
+    }
   }
+
+  console.log(insertInvestment);
 
   const sharesHandler = sharesNum => {
     setShares(sharesNum)
@@ -33,16 +43,6 @@ const AddScreen = props => {
   const priceHandler = priceNum => {
     setPrice(priceNum);
   }
-
-  const readValue = () => {
-    db.transaction(tx => {
-      tx.executeSql("select * from items")
-    },
-      null
-    )
-  }
-
-  console.log({ readValue })
 
   return (
     <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
