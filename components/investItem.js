@@ -11,6 +11,9 @@ const InvestmentItem = props => {
             <View style={styles.shareContainer}>
                 <Text style={styles.shares}>{props.shares}</Text>
             </View>
+            <View style={styles.priceContainer}>
+                <Text>{props.price}</Text>
+            </View>
         </TouchableOpacity>
     )
 }
@@ -32,6 +35,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginRight: 25
     },  
+    priceContainer: {
+        alignItems: 'center',
+        marginBottom: 20,
+    },
     symbol: {
         fontSize: 30,
         marginBottom: 5,

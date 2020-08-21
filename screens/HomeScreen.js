@@ -16,6 +16,7 @@ const HomeScreen = props => {
         <InvestmentItem
           symbol={itemData.item.symbol}
           shares={itemData.item.shares}
+          price={itemData.item.price}
           onSelect={() => {
             props.navigation.navigate('StockDetails')
           }}

@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_INVEST:
       console.log('testing')
-      const newInvestment = new invest(new Date().toString(), action.investData.symbol, action.investData.shares);
+      const newInvestment = new invest(new Date().toString(), action.investData.symbol, action.investData.shares, action.investData.price);
       return {
         investments: state.investments.concat(newInvestment)
       };

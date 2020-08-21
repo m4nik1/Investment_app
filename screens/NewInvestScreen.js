@@ -9,13 +9,12 @@ import {
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import Colors from '../constants/Colors';
 import * as investmentActions from '../store/invest-actions';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
   const [shares, setShares] = useState('');
+  const [price, setPrice] = useState('')
 
   const dispatch = useDispatch();
 
@@ -26,9 +25,12 @@ const NewInvestmentScreen = props => {
   const shareChange = text => {
     setShares(text)
   }
+  const priceChange = text => {
+    setPrice(text)
+  }
 
   const saveInvestment = () => {
-    dispatch(investmentActions.addInvestment(symbol, shares));
+    dispatch(investmentActions.addInvestment(symbol, shares, price));
     props.navigation.goBack();
   };
 
@@ -42,6 +44,10 @@ const NewInvestmentScreen = props => {
                 <View style={styles.sharesView}>
                   <Text style={styles.sharesText}>Shares Bought</Text>
                   <TextInput placeholder='0' style={styles.sharesInput} onChangeText={shareChange} value={shares} />
+                </View>
+                <View style={styles.priceView}>
+                  <Text style={styles.priceText}>Price</Text>
+                  <TextInput style={styles.priceInput} placeholder='$1' onChangeText={priceChange} value={price} />
                 </View>
                 <Button title='Submit' style={styles.submit} onPress={saveInvestment}/>
             </View>
@@ -90,6 +96,18 @@ const styles = StyleSheet.create({
   },
   sharesInput: {
     marginLeft: 85,
+    fontSize: 15,
+  },
+  priceView: {
+    flexDirection: 'row',
+    marginTop: 20
+  },
+  priceText: {
+    fontSize: 15,
+    marginLeft: 50,
+  },
+  priceInput: {
+    marginLeft: 150,
     fontSize: 15,
   },
 });
