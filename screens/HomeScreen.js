@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View, FlatList, Button } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import * as investActions from '../store/invest-actions'
 
 import HeaderButton from '../components/HeaderButton';
 import InvestmentItem from '../components/investItem';
 
 const HomeScreen = props => {
   const investments = useSelector(state => state.invest.investments);
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(investActions.loadInvestments())
+  }, [dispatch])
 
   return (
     <FlatList

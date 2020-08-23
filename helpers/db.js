@@ -40,7 +40,7 @@ export function insertInvestment (symbol, shares, price) {
 
 export const fetchInvestment = () => {
     const promise = new Promise((resolve, reject) => {
-        db.transaction(tx => {
+        db2.transaction(tx => {
             tx.executeSql(
                 'SELECT * FROM Stocks',
                 [],

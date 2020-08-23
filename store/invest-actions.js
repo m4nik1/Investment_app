@@ -25,6 +25,7 @@ export const loadInvestments = () => {
       try {
           const dbResult = await fetchInvestment();
           console.log(dbResult)
+          console.log('working...')
           // dispatch the all the places in the array to the reducer
           dispatch({ type: SET_INVEST, investments: dbResult.rows._array })
       } catch (err) {

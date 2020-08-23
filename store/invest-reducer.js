@@ -8,9 +8,9 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_INVEST:
-      console.log('working')
+      console.log('saving...')
       return {
-        investments: action.investments.map(in => new invest(in.symbol))
+        investments: action.investments.map(pl => new invest(pl.id.toString(), pl.symbol, pl.shares, pl.price))
       }
     case ADD_INVEST:
       const newInvestment = new invest(new Date().toString(), action.investData.symbol, action.investData.shares, action.investData.price);
