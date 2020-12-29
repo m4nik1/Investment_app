@@ -1,19 +1,19 @@
-import { ADD_INVEST, SET_INVEST } from './invest-actions';
+import { ADD_INVEST } from './invest-actions';
 import invest from '../model/invest';
+import moment from 'moment'
 
 const initialState = {
   investments: []
 };
 
 export default (state = initialState, action) => {
+
+  const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:00')
+
   switch (action.type) {
-    case SET_INVEST:
-      console.log('saving...')
-      return {
-        investments: action.investments.map(pl => new invest(pl.id.toString(), pl.symbol, pl.shares, pl.price))
-      }
     case ADD_INVEST:
-      const newInvestment = new invest(new Date().toString(), action.investData.symbol, action.investData.shares, action.investData.price);
+      console.log('testing')
+      const newInvestment = new invest(dateTime, action.investData.symbol, action.investData.shares, action.investData.price);
       return {
         investments: state.investments.concat(newInvestment)
       };

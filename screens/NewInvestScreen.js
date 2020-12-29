@@ -5,16 +5,16 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Keyboard
 } from 'react-native';
 import { useDispatch } from 'react-redux';
 
+import Colors from '../constants/Colors';
 import * as investmentActions from '../store/invest-actions';
 
 const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
-  const [shares, setShares] = useState('');
   const [price, setPrice] = useState('')
+  const [shares, setShares] = useState('');
 
   const dispatch = useDispatch();
 
@@ -25,7 +25,7 @@ const NewInvestmentScreen = props => {
   const shareChange = text => {
     setShares(text)
   }
-  const priceChange = text => {
+  const priceChange  = text => {
     setPrice(text)
   }
 
@@ -46,12 +46,12 @@ const NewInvestmentScreen = props => {
                   <TextInput placeholder='0' style={styles.sharesInput} onChangeText={shareChange} value={shares} />
                 </View>
                 <View style={styles.priceView}>
-                  <Text style={styles.priceText}>Price</Text>
-                  <TextInput style={styles.priceInput} placeholder='$1' onChangeText={priceChange} value={price} />
+                  <Text style={styles.priceText}>Price Bought</Text>
+                  <TextInput placeholder='$0' style={styles.priceInput} onChangeText={priceChange} value={price} />
                 </View>
-                <Button title='Submit' style={styles.submit} onPress={saveInvestment}/>
+                <Button title='Submit' style={styles.submit} onPress={saveInvestment} />
             </View>
-   // </TouchableWithoutFeedback>
+  //  </TouchableWithoutFeedback>
   );
 };
 
@@ -81,6 +81,7 @@ const styles = StyleSheet.create({
   symbolInput: {
     marginLeft: 90,
     fontSize: 15,
+    width: 100
   },
   symbolText: {
     fontSize: 15,
@@ -88,28 +89,31 @@ const styles = StyleSheet.create({
   },
   sharesView: {
     flexDirection: 'row',
-    marginTop: 20
+    marginTop: 20,
+    padding: 10
   },
   sharesText: {
     fontSize: 15,
-    marginLeft: 50,
+    marginLeft: 40,
   },
   sharesInput: {
     marginLeft: 85,
     fontSize: 15,
+    width: 100
+  },
+  priceText: {
+    marginLeft: 45,
+    fontSize: 15,
   },
   priceView: {
     flexDirection: 'row',
-    marginTop: 20
-  },
-  priceText: {
-    fontSize: 15,
-    marginLeft: 50,
+    padding: 20
   },
   priceInput: {
-    marginLeft: 150,
     fontSize: 15,
-  },
+    marginLeft: 78,
+    width: 100,
+  }
 });
 
 export default NewInvestmentScreen;
