@@ -14,6 +14,7 @@ const StockDetailScreen = props => {
     // price state
     const [Price, setPrice] = useState()
 
+    // LOOK at this for fetch info https://reactnative.dev/docs/network#known-issues-with-fetch-and-cookie-based-authentication
 
     // Date Info
     const month = new moment(new Date()).format('MM')
