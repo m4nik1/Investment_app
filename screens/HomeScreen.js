@@ -29,9 +29,6 @@ const HomeScreen = props => {
         />
       )}
     />
-    // <View>
-    //   <Button title='press this' onPress={() => console.log(investments)} />
-    // </View>
   );
 };
 
