@@ -15,7 +15,7 @@ const HomeScreen = props => {
       data={investments}
       renderItem={itemData => (
         <InvestmentItem
-          symbol={itemData.item.symbol}
+          symbol={itemData.item.id}
           shares={itemData.item.shares}
           onSelect={() => {
             props.navigation.navigate({
