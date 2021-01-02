@@ -3,37 +3,37 @@ import invest from '../model/invest';
 import moment from 'moment'
 
 const initialState = {
-  investments: {}
+  investments: []
 };
 
 export default (state = initialState, action) => {
 
-  const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:00')
+  const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:ss')
+
+  let newInvestment
 
   switch (action.type) {
     case ADD_INVEST:
       const addedInvestment = action.investData
 
-      if (state.investments) {
-        // if the investment exists
-        const newInvestment = new invest(
+      if(state.investments[addedInvestment.symbol]) {
+        newInvestment = new invest(
           dateTime, 
-          state.investments[addedInvestment.id].shares + 1,
-          state.investments[addedInvestment.id].price + addedInvestment.price
-          )
+          addedInvestment.symbol, 
+          state.investments[addedInvestment.symbol] + addedInvestment.shares, 
+          addedInvestment.price + state.invest[addedInvestment.symbol].price 
+        )
       }
-
       else {
-        const newInvestment = new invest(dateTime, addedInvestment.shares, addedInvestment.price);
+        newInvestment = new invest(dateTime, action.investData.symbol, action.investData.shares, action.investData.price);
       }
-
 
       return {
-        ...state, 
-        investments: {...state.investments, [addedInvestment.id]: newInvestment }
+        ...state,
+        investments: { ...state.investments, [addedInvestment.symbol]:newInvestment }  //state.investments.concat(newInvestment)
       };
 
-    // default switch case
+
     default:
       return state;
   }

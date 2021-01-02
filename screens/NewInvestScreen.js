@@ -39,7 +39,7 @@ const NewInvestmentScreen = props => {
             <View style={styles.screen}>
                 <View style={styles.symbolView}>
                   <Text style={styles.symbolText}>Stock Symbol</Text>
-                  <TextInput style={styles.symbolInput} placeholder='eg. APPL' onChangeText={symbolChange} value={symbol} />
+                  <TextInput style={styles.symbolInput} placeholder='eg. AAPL' onChangeText={symbolChange} value={symbol} />
                 </View>
                 <View style={styles.sharesView}>
                   <Text style={styles.sharesText}>Shares Bought</Text>

@@ -1,6 +1,7 @@
 class invest {
-    constructor(id, shares, price) {
+    constructor(id, symbol, shares, price) {
         this.id = id;
+        this.symbol = symbol
         this.shares = shares;
         this.price = price
     }

@@ -8,8 +8,8 @@ import invest from '../model/invest';
 const StockDetailScreen = props => {
     
     // Parameters fetched from navi
-    const shares = props.navigation.getParam('shares')
-    const symbol = props.navigation.getParam('symbol')
+    const shares = 'AAPL'//props.navigation.getParam('shares')
+    const symbol = 0//props.navigation.getParam('symbol')
 
     // price state
     const [Price, setPrice] = useState()
@@ -35,9 +35,9 @@ const StockDetailScreen = props => {
                 `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${timeInterval}min&apikey=${APIKey}`
             );
             let responseJson = await response.json()
-            const data = responseJson['Time Series (1min)'][date + ' 20:00:00']['4. close']
-            // console.log(responseJson['Time Series (1min)'][date + ' 20:00:00'])
-            setPrice(data)
+            // const data = responseJson['Time Series (1min)'][date + ' 20:00:00']['4. close']
+            console.log(responseJson['Time Series (1min)']['2020-12-31' + ' 19:00:00']['4. close'])
+            setPrice(responseJson['Time Series (1min)']['2020-12-31' + ' 19:00:00']['4. close'])
         } catch(error) {
             console.error('This is the error: ', error)
         }

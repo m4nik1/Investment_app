@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default {\n  primary: '#fc9208'\n};","map":{"version":3,"sources":["C:/Users/manik/Documents/react-native/Investment_app/constants/Colors.js"],"names":["primary"],"mappings":"AAAA,eAAe;AACXA,EAAAA,OAAO,EAAE;AADE,CAAf","sourcesContent":["export default {\r\n    primary: '#fc9208'\r\n}"]},"metadata":{},"sourceType":"module"}

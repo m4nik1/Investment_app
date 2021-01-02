@@ -1,6 +1,5 @@
 import React from 'react';
-import moment from 'moment'
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { StyleSheet, View, FlatList, Button, Text } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
 
@@ -8,14 +7,27 @@ import HeaderButton from '../components/HeaderButton';
 import InvestmentItem from '../components/investItem';
 
 const HomeScreen = props => {
-  const investments = useSelector(state => state.invest.investments);
+  const investments = useSelector(state => {
+    const investItems = []
+    for (const key in state.invest.investments) {
+      investItems.push({
+        id: state.invest.investments[key].id,
+        symbol: key,
+        shares: state.invest.investments[key].shares,
+        price: state.invest.investments[key].price
+      })
+    }
+    return investItems
+  })
+
+  console.log(investments)
 
   return (
     <FlatList
       data={investments}
-      renderItem={itemData => (
+      renderItem={itemData => {
         <InvestmentItem
-          symbol={itemData.item.id}
+          symbol={itemData.item.symbol}
           shares={itemData.item.shares}
           onSelect={() => {
             props.navigation.navigate({
@@ -27,7 +39,8 @@ const HomeScreen = props => {
             })}
           }
         />
-      )}
+      }
+    }
     />
   );
 };
