@@ -6,7 +6,8 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-import moment from 'moment'
+
+import * as investmentActions from '../store/invest-actions'
 
 import { useDispatch } from 'react-redux';
 
@@ -17,7 +18,6 @@ const NewInvestmentScreen = props => {
   
 
   const dispatch = useDispatch()
-  const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:ss')
 
   const symbolChange = text => {
     // you could add validation
