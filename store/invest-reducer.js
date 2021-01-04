@@ -3,20 +3,39 @@ import invest from '../model/invest';
 import moment from 'moment'
 
 const initialState = {
-  investments: []
+  investments: {}
 };
 
 export default (state = initialState, action) => {
 
   const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:ss')
 
+  let newInvestment
+
   switch (action.type) {
     case ADD_INVEST:
-      const newInvestment = new invest(dateTime, action.investData.symbol, action.investData.shares, action.investData.price);
-      
+      const addedInvestment = action.investData
+
+      if(state.investments[addedInvestment.symbol]) {
+        // already have the item in the cart
+        const updatedInvestment = new invest(
+          dateTime,
+          addedInvestment.symbol,
+          state.investments[addedInvestment.symbol].shares + addedInvestment.shares,
+          addedInvestment.price
+        )
+        return {
+          ...state,
+          investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment }  //state.investments.concat(newInvestment)
+        };
+      }
+      else {
+        newInvestment = new invest(dateTime, addedInvestment.symbol, addedInvestment.shares, addedInvestment.price);
+      }
 
       return {
-        investments: state.investments.concat(newInvestment)
+        ...state,
+        investments: { ...state.investments, [addedInvestment.symbol] : newInvestment }  //state.investments.concat(newInvestment)
       };
 
     default:
