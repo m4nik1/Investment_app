@@ -22,27 +22,27 @@ const HomeScreen = props => {
   })
 
   return (
-    // <FlatList
-    //   data={investments}
-    //   renderItem={itemData => (
-    //     <InvestmentItem
-    //       symbol={itemData.item.symbol}
-    //       shares={itemData.item.shares}
-    //       onSelect={() => {
-    //         props.navigation.navigate({
-    //           routeName: 'StockDetails',
-    //           params: {
-    //             symbol: itemData.item.symbol,
-    //             shares: itemData.item.shares
-    //           }
-    //         })}
-    //       }
-    //     />
-    //   )}
-    // />
-    <View>
-      <Button title='press this' onPress={() => console.log(investments)} />
-    </View>
+    <FlatList
+      data={investments}
+      renderItem={itemData => (
+        <InvestmentItem
+          symbol={itemData.item.symbol}
+          shares={itemData.item.shares}
+          onSelect={() => {
+            props.navigation.navigate({
+              routeName: 'StockDetails',
+              params: {
+                symbol: itemData.item.symbol,
+                shares: itemData.item.shares
+              }
+            })}
+          }
+        />
+      )}
+    />
+    // <View>
+    //   <Button title='press this' onPress={() => console.log(investments)} />
+    // </View>
   );
 };
 

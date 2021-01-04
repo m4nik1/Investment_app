@@ -15,13 +15,16 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ADD_INVEST:
       const addedInvestment = action.investData
+      const investmentShares = addedInvestment.shares
+
+      console.log(typeof(investmentShares))
 
       if(state.investments[addedInvestment.symbol]) {
         // already have the item in the cart
         const updatedInvestment = new invest(
           dateTime,
           addedInvestment.symbol,
-          state.investments[addedInvestment.symbol].shares + addedInvestment.shares,
+          Number(state.investments[addedInvestment.symbol].shares) + Number(addedInvestment.shares),
           addedInvestment.price
         )
         return {

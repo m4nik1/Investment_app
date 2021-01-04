@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 
 const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
-  const [price, setPrice] = useState('')
+  const [price, setPrice] = useState()
   const [shares, setShares] = useState('');
   
 
