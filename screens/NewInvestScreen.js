@@ -6,17 +6,18 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import moment from 'moment'
 
-import Colors from '../constants/Colors';
-import * as investmentActions from '../store/invest-actions';
+import { useDispatch } from 'react-redux';
 
 const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
   const [price, setPrice] = useState('')
   const [shares, setShares] = useState('');
+  
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  const dateTime = new moment(new Date()).format('YYYY-MM-DD hh:mm:ss')
 
   const symbolChange = text => {
     // you could add validation
@@ -30,6 +31,7 @@ const NewInvestmentScreen = props => {
   }
 
   const saveInvestment = () => {
+    // redux call
     dispatch(investmentActions.addInvestment(symbol, shares, price));
     props.navigation.goBack();
   };

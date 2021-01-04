@@ -14,27 +14,14 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case ADD_INVEST:
-      const addedInvestment = action.investData
-
-      if(state.investments[addedInvestment.symbol]) {
-        newInvestment = new invest(
-          dateTime, 
-          addedInvestment.symbol, 
-          state.investments[addedInvestment.symbol] + addedInvestment.shares, 
-          addedInvestment.price + state.invest[addedInvestment.symbol].price 
-        )
-      }
-      else {
-        newInvestment = new invest(dateTime, action.investData.symbol, action.investData.shares, action.investData.price);
-      }
+      newInvestment = new invest(dateTime, action.investData.symbol, action.investData.shares, action.investData.price);
+      
 
       return {
-        ...state,
-        investments: { ...state.investments, [addedInvestment.symbol]:newInvestment }  //state.investments.concat(newInvestment)
+        investments: state.investments.concat(newInvestment)
       };
 
 
     default:
       return state;
-  }
 };

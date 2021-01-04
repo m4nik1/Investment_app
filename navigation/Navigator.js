@@ -3,7 +3,6 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 
 import NewInvestmentScreen from '../screens/NewInvestScreen';
-import StockDetailScreen from '../screens/StockDetailScreen'
 import HomeScreen from '../screens/HomeScreen'
 import Colors from '../constants/Colors';
 
@@ -11,7 +10,6 @@ const Navigator = createStackNavigator(
   {
     Home: HomeScreen,
     NewInvestment: NewInvestmentScreen,
-    StockDetails: StockDetailScreen
   },
   {
     defaultNavigationOptions: {
