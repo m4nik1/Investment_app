@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
         )
         return {
           ...state,
-          investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment }  //state.investments.concat(newInvestment)
+          investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment }
         };
       }
       else {

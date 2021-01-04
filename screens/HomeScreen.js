@@ -8,7 +8,18 @@ import HeaderButton from '../components/HeaderButton';
 import InvestmentItem from '../components/investItem';
 
 const HomeScreen = props => {
-  const investments = useSelector(state => state.invest.investments);
+  const investments = useSelector(state => {
+    const investmentItems = [];
+    for (const key in state.invest.investments) {
+      investmentItems.push({
+        id: state.invest.investments[key].id,
+        symbol: key,
+        shares: state.invest.investments[key].shares,
+        price: state.invest.investments.price
+      })
+    }
+    return investmentItems
+  })
 
   return (
     // <FlatList
