@@ -1,14 +1,16 @@
 import { Platform } from 'react-native';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 
 import NewInvestmentScreen from '../screens/NewInvestScreen';
 import HomeScreen from '../screens/HomeScreen'
 import StockDetailScreen from "../screens/StockDetailScreen"
 import Colors from '../constants/Colors';
+import AuthScreen from '../screens/LoginScreen';
 
 const Navigator = createStackNavigator(
   {
+    Login: AuthScreen,
     Home: HomeScreen,
     NewInvestment: NewInvestmentScreen,
     StockDetails: StockDetailScreen
