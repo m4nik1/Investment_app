@@ -7,10 +7,10 @@ import HomeScreen from '../screens/HomeScreen'
 import StockDetailScreen from "../screens/StockDetailScreen"
 import Colors from '../constants/Colors';
 import AuthScreen from '../screens/LoginScreen';
+import SignUp from '../screens/SignUpScreen'
 
 const Navigator = createStackNavigator(
   {
-    Login: AuthScreen,
     Home: HomeScreen,
     NewInvestment: NewInvestmentScreen,
     StockDetails: StockDetailScreen
@@ -25,4 +25,18 @@ const Navigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(Navigator);
+const authNavigator = createStackNavigator(
+  {
+    Login: AuthScreen,
+    SignUp: SignUp
+  }
+)
+
+const MainNavigator = createSwitchNavigator(
+  {
+    auth: authNavigator,
+    Navigator: Navigator,
+  }
+)
+
+export default createAppContainer(MainNavigator);

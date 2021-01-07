@@ -6,7 +6,7 @@ import Card from '../components/Card'
 const AuthScreen = (props) => {
 
     const signUp = () => {
-        props.navigation.goBack()
+        props.navigation.navigate('SignUp')
     }
 
     return (
@@ -39,7 +39,7 @@ const AuthScreen = (props) => {
                 />
             </View>
             <Button title='Login' onPress={() => {}} type='outline'  style={styles.signUpButton} />
-            <Button title='SignUp' onPress={() => {}} />
+            <Button title='SignUp' onPress={() => signUp()} />
         </Card>
     )
 }
