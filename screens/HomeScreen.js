@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment'
+import * as firebase from 'firebase'
 import { StyleSheet, View, FlatList, Button } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
@@ -20,6 +20,10 @@ const HomeScreen = props => {
     }
     return investmentItems
   })
+
+  const fetchInvestments = () => {
+    firebase.database()
+  }
 
   return (
     <FlatList

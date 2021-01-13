@@ -1,12 +1,13 @@
 import React, { useState }  from 'react'
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
+import * as firebase from 'firebase'
+import { View, Text, StyleSheet, Button, ImagePropTypes } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import Card from '../components/Card'
 import Input from '../components/Input'
 import * as authActions from '../store/auth-actions'
 
-const SignUpScreen = () => {
+const SignUpScreen = props => {
     
     const dispatch = useDispatch();
 
@@ -26,6 +27,24 @@ const SignUpScreen = () => {
         dispatch(authActions.signup(email, password))
     }
 
+    const anonymousLogin = () => {
+        console.log('anonymously logging in')
+
+        firebase.auth().signInAnonymously()
+            .then((result) => {
+                if(result) {
+                    props.navigation.navigate('Home')
+                }
+            })
+            .catch((e) => {
+                const errorcode = e.code
+                const errorMessage = e.message
+                console.error('Code: ' + errorcode)
+                console.log(errorMessage)
+            })
+
+    }
+
     return (
         <Card style={styles.card}>
             <View style={styles.emailView}>
@@ -36,6 +55,7 @@ const SignUpScreen = () => {
                     id='Email'
                     label="Email"
                     required
+                    errorMessage='Please type in a vaild email'
                     keyboardType="email-address"
                     onValueChange={emailChange}
                 />
@@ -57,6 +77,7 @@ const SignUpScreen = () => {
                 />
             </View>
             <Button title='SignUp' onPress={signUp} />
+            <Button title='Anonymous login' onPress={anonymousLogin} />
         </Card>
     )
 }
@@ -64,7 +85,7 @@ const SignUpScreen = () => {
 const styles = StyleSheet.create({
     card: {
         marginTop: 150,
-        height: 150
+        height: 180
     },
     emailView: {
         flexDirection: 'row',
