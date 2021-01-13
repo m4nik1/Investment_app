@@ -1,11 +1,10 @@
 import React, { useState }  from 'react'
 import * as firebase from 'firebase'
-import { View, Text, StyleSheet, Button, ImagePropTypes } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import { useDispatch } from 'react-redux'
 
 import Card from '../components/Card'
 import Input from '../components/Input'
-import * as authActions from '../store/auth-actions'
 
 const SignUpScreen = props => {
     
@@ -24,16 +23,27 @@ const SignUpScreen = props => {
 
     const signUp = () => {
         console.log('All Signed Up!')
-        dispatch(authActions.signup(email, password))
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((user) => {
+                console.log('All Signed up')
+                // props.navigation.navigate('Home')
+            })
+            .catch((error) => {
+                const errorCode = error.code
+                const errorMessage = error.message
+                console.error('Code: ' + errorCode)
+                console.log(errorMessage)
+            })
+        // dispatch(authActions.signup(email, password))
     }
 
     const anonymousLogin = () => {
         console.log('anonymously logging in')
-
+        props.navigation.navigate('Home')
         firebase.auth().signInAnonymously()
             .then((result) => {
                 if(result) {
-                    props.navigation.navigate('Home')
+                    // props.navigation.navigate('Home')
                 }
             })
             .catch((e) => {

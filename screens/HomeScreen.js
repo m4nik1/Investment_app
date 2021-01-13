@@ -1,6 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase'
-import { StyleSheet, View, FlatList, Button } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
 
@@ -44,9 +44,6 @@ const HomeScreen = props => {
         />
       )}
     />
-    // <View>
-    //   <Button title='press this' onPress={() => console.log(investments)} />
-    // </View>
   );
 };
 
