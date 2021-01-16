@@ -6,6 +6,7 @@ import {
   TextInput,
   StyleSheet,
 } from 'react-native';
+import * as firebase from 'firebase'
 
 import * as investmentActions from '../store/invest-actions'
 
@@ -15,6 +16,8 @@ const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
   const [price, setPrice] = useState()
   const [shares, setShares] = useState('');
+
+  const userId = firebase.auth().currentUser.uid
   
 
   const dispatch = useDispatch()
@@ -28,6 +31,14 @@ const NewInvestmentScreen = props => {
   }
   const priceChange  = text => {
     setPrice(text)
+  }
+
+  const fetchInvestments = () => {
+    firebase.database().ref('users/' + userId).set({
+      sym: symbol,
+      shar: shares,
+      pri: price
+    })
   }
 
   const saveInvestment = () => {
@@ -52,6 +63,7 @@ const NewInvestmentScreen = props => {
                   <TextInput placeholder='$0' style={styles.priceInput} onChangeText={priceChange} value={price} />
                 </View>
                 <Button title='Submit' style={styles.submit} onPress={saveInvestment} />
+                <Button title='Test Firebase RTB' onPress={fetchInvestments} />
             </View>
   //  </TouchableWithoutFeedback>
   );

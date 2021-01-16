@@ -7,9 +7,6 @@ import Card from '../components/Card'
 import Input from '../components/Input'
 
 const SignUpScreen = props => {
-    
-    const dispatch = useDispatch();
-
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -25,13 +22,17 @@ const SignUpScreen = props => {
         console.log('All Signed Up!')
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((user) => {
-                console.log('All Signed up')
-                // props.navigation.navigate('Home')
+                if(user) {
+                    console.log('All Signed up')
+                    console.log(user)
+                    props.navigation.navigate('Home')
+                }
             })
             .catch((error) => {
                 const errorCode = error.code
                 const errorMessage = error.message
                 console.error('Code: ' + errorCode)
+                console.log(email)
                 console.log(errorMessage)
             })
         // dispatch(authActions.signup(email, password))
@@ -39,11 +40,11 @@ const SignUpScreen = props => {
 
     const anonymousLogin = () => {
         console.log('anonymously logging in')
-        props.navigation.navigate('Home')
         firebase.auth().signInAnonymously()
             .then((result) => {
                 if(result) {
-                    // props.navigation.navigate('Home')
+                    props.navigation.navigate('Home')
+                    console.log(result.user)
                 }
             })
             .catch((e) => {
@@ -67,7 +68,8 @@ const SignUpScreen = props => {
                     required
                     errorMessage='Please type in a vaild email'
                     keyboardType="email-address"
-                    onValueChange={emailChange}
+                    onChangeText={emailChange}
+                    value={email}
                 />
             </View>
             <View style={styles.passwordView}>
@@ -81,7 +83,8 @@ const SignUpScreen = props => {
                     minLength={5}
                     autoCapitalize='none'
                     errorText='Please enter a vaild password'
-                    onValueChange={passwordChange}
+                    onChangeText={passwordChange}
+                    value={password}
                     initialValue=""
                     style={styles.passwordInput}
                 />

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as firebase from 'firebase'
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, Button, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
 
@@ -20,10 +20,6 @@ const HomeScreen = props => {
     }
     return investmentItems
   })
-
-  const fetchInvestments = () => {
-    firebase.database()
-  }
 
   return (
     <FlatList
@@ -48,6 +44,20 @@ const HomeScreen = props => {
 };
 
 HomeScreen.navigationOptions = navData => {
+  const logOut = () => {
+    firebase.auth().signOut()
+      .then(() => {
+        navData.navigation.navigate('Login')
+        console.log('Logging Out')
+      })
+      .catch((error) => {
+        errorCode = error.code
+        errorMessage = error.message
+        console.error(errorCode)
+        console.log(errorMessage)
+      })
+  }
+
   return {
     headerTitle: 'All Stocks',
     headerRight: (
@@ -60,10 +70,16 @@ HomeScreen.navigationOptions = navData => {
           }}
         />
       </HeaderButtons>
+    ),
+    headerLeft: () => (
+      <View>
+        <Button onPress={logOut} title='Log Out' />
+      </View>
     )
   };
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+});
 
 export default HomeScreen;
