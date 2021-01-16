@@ -17,8 +17,6 @@ export default (state = initialState, action) => {
       const addedInvestment = action.investData
       const investmentShares = addedInvestment.shares
 
-      console.log(typeof(investmentShares))
-
       if(state.investments[addedInvestment.symbol]) {
         // already have the item in the cart
         const updatedInvestment = new invest(
