@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as firebase from 'firebase'
 import { StyleSheet, FlatList, Button, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
+import * as investmentActions from '../store/invest-actions'
 import HeaderButton from '../components/HeaderButton';
 import InvestmentItem from '../components/investItem';
+import invest from "../model/invest";
 
 const HomeScreen = props => {
   const investments = useSelector(state => {
@@ -20,6 +22,18 @@ const HomeScreen = props => {
     }
     return investmentItems
   })
+
+
+  const dispatch = useDispatch()
+  const userID = firebase.auth().currentUser.uid
+  const [loaded, setLoaded] = useState(props.navigation.getParam('loaded'))
+
+  if(loaded == 'true') {
+    // console.log('This is working!')
+    console.log(loaded)
+    dispatch(investmentActions.fetchInvestments(userID))
+    setLoaded('false')
+  }
 
   return (
     <FlatList

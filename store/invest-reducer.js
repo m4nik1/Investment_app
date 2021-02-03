@@ -1,4 +1,5 @@
-import { ADD_INVEST } from './invest-actions';
+import { ADD_INVEST, FETCH_INVEST, PRINT_INVEST } from './invest-actions';
+import * as firebase from 'firebase'
 import invest from '../model/invest';
 import moment from 'moment'
 
@@ -12,32 +13,49 @@ export default (state = initialState, action) => {
 
   let newInvestment
 
+  const addInvestment = i => {
+    firebase.database().ref('users/' + firebase.auth().currentUser.uid).set({
+      invest: i
+    })
+  }
+
   switch (action.type) {
+    case FETCH_INVEST:
+      console.log('Fetching Investments');
+      // console.log(action.investments)
+      return {
+        investments: action.firebaseInvestment
+      }
+
+
     case ADD_INVEST:
-      const addedInvestment = action.investData
-      const investmentShares = addedInvestment.shares
+      const addedInvestment = action.investData;
+      console.log('ADD INVEST is working')
 
       if(state.investments[addedInvestment.symbol]) {
         // already have the item in the cart
-        const updatedInvestment = new invest(
+        const updatedInvestment = new invest (
           dateTime,
           addedInvestment.symbol,
           Number(state.investments[addedInvestment.symbol].shares) + Number(addedInvestment.shares),
           addedInvestment.price
         )
+
+        addInvestment({ ...state.investments, [addedInvestment.symbol] : updatedInvestment })
+
         return {
-          ...state,
-          investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment }
-        };
-      }
-      else {
-        newInvestment = new invest(dateTime, addedInvestment.symbol, addedInvestment.shares, addedInvestment.price);
+          investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment },
+        }
       }
 
-      return {
-        ...state,
-        investments: { ...state.investments, [addedInvestment.symbol] : newInvestment }  //state.investments.concat(newInvestment)
-      };
+      else {
+        newInvestment = new invest(dateTime, addedInvestment.symbol, addedInvestment.shares, addedInvestment.price);
+        addInvestment({ ...state.investments, [addedInvestment.symbol] : newInvestment })
+
+        return {
+          investments: { ...state.investments, [addedInvestment.symbol] : newInvestment }  //state.investments.concat(newInvestment)
+        };
+      }
 
     default:
       return state;

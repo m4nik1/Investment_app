@@ -33,13 +33,10 @@ const NewInvestmentScreen = props => {
     setPrice(text)
   }
 
-  const fetchInvestments = () => {
-    firebase.database().ref('users/' + userId).set({
-      sym: symbol,
-      shar: shares,
-      pri: price
-    })
+  const printUserID = () => {
+    console.log(userId)
   }
+
 
   const saveInvestment = () => {
     // redux call
@@ -63,7 +60,6 @@ const NewInvestmentScreen = props => {
                   <TextInput placeholder='$0' style={styles.priceInput} onChangeText={priceChange} value={price} />
                 </View>
                 <Button title='Submit' style={styles.submit} onPress={saveInvestment} />
-                <Button title='Test Firebase RTB' onPress={fetchInvestments} />
             </View>
   //  </TouchableWithoutFeedback>
   );

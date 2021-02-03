@@ -7,8 +7,9 @@ import Input from '../components/Input'
 
 const AuthScreen = props => {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('maniksoomro@gmail.com')
+    const [password, setPassword] = useState('12345678')
+    const [load, setLoad] = useState('false')
 
     const emailChange = (em) => {
         setEmail(em)
@@ -26,9 +27,13 @@ const AuthScreen = props => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
                 if(user) {
-                    props.navigation.navigate('Home')
-                    console.log('Logged in')
-                    console.log(user.uid)
+                    // console.log('Logged in')
+                    props.navigation.navigate({
+                        routeName: 'Home',
+                        params: {
+                            loaded: 'true'
+                        }
+                    })
                 }
             })
             .catch((error) => {
