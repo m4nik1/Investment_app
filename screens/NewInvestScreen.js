@@ -33,10 +33,6 @@ const NewInvestmentScreen = props => {
     setPrice(text)
   }
 
-  const printUserID = () => {
-    console.log(userId)
-  }
-
 
   const saveInvestment = () => {
     // redux call
