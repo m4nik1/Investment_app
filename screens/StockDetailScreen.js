@@ -52,12 +52,14 @@ const StockDetailScreen = props => {
     async function StockInfo() {
         try {
             let response = await fetch(
-                `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${timeInterval}min&apikey=${APIKey}`
+                // `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${timeInterval}min&apikey=${APIKey}`
+                `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${APIKey}`
             );
             let responseJson = await response.json()
-            // const data = responseJson['Time Series (1min)'][date + ' 19:00:00']['4. close']
-            // console.log(responseJson['Time Series (1min)'][date + ' 20:00:00'])
-            setPrice(230.042)
+            // console.log(responseJson)
+            const data = responseJson['Global Quote']['05. price']
+            console.log(data)
+            setPrice(data)
         } catch(error) {
             console.error('This is the error: ', error)
         }
@@ -65,7 +67,7 @@ const StockDetailScreen = props => {
 
     useEffect(() => {
         StockInfo()
-    }, [day])
+    }, [])
 
 
     return (
