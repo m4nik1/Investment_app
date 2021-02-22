@@ -21,7 +21,14 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case FETCH_INVEST:
-      console.log('Fetching Investments');
+      if(action.firebaseInvestment) {
+        console.log('Fetching Investments');
+      }
+
+      else {
+        console.log("something is wrong")
+      }
+
       // console.log(action.investments)
       return {
         investments: action.firebaseInvestment

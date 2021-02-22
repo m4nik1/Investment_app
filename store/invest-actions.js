@@ -13,8 +13,10 @@ export const fetchInvestments = (userID) => {
   return (dispatch) => {
     firebase.database().ref('users/' + userID).on('value', (snapshot) => {
       firebaseInvestments = snapshot.val().invest
+
       // console.log(firebaseInvestments)
-    })
+
+    });
     dispatch({ type: FETCH_INVEST, firebaseInvestment: firebaseInvestments })
   }
 } 

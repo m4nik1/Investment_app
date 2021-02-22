@@ -31,6 +31,7 @@ const HomeScreen = props => {
   if(loaded == 'true') {
     // console.log('This is working!')
     console.log(loaded)
+    //console.log("This is the id: " +  userID)
     dispatch(investmentActions.fetchInvestments(userID))
     setLoaded('false')
   }

@@ -27,7 +27,7 @@ const AuthScreen = props => {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((user) => {
                 if(user) {
-                    // console.log('Logged in')
+                    console.log('Logged in')
                     props.navigation.navigate({
                         routeName: 'Home',
                         params: {
