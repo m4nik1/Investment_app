@@ -7,7 +7,7 @@ import Input from '../components/Input'
 
 const AuthScreen = props => {
 
-    const [email, setEmail] = useState('maniksoomro@gmail.com')
+    const [email, setEmail] = useState('maniksoomro@gmail.com') // 
     const [password, setPassword] = useState('12345678')
     const [load, setLoad] = useState('false')
 

@@ -13,6 +13,7 @@ const StockDetailScreen = props => {
 
     // price state
     const [Price, setPrice] = useState()
+    const [numSharePrice, setNumPrice] = useState();
 
     // LOOK at this for fetch info https://reactnative.dev/docs/network#known-issues-with-fetch-and-cookie-based-authentication
 
@@ -39,7 +40,7 @@ const StockDetailScreen = props => {
         return investmentItems
       })
 
-    const price = investments['price']
+    const price = investments["price"]
 
     function findInvestment() {
         for(const i in investments) {
@@ -58,8 +59,10 @@ const StockDetailScreen = props => {
             let responseJson = await response.json()
             // console.log(responseJson)
             const data = responseJson['Global Quote']['05. price']
-            console.log(data)
-            setPrice(data)
+            console.log(data);
+            setPrice(data);
+            setNumPrice(Number(data)/shares);
+            // console.log(numSharePrice);
         } catch(error) {
             console.error('This is the error: ', error)
         }
@@ -80,6 +83,7 @@ const StockDetailScreen = props => {
                 <Text>You bought it at {price}</Text>
                 <Text>shares were bought at {investments.id}</Text>
                 <Text>The price yesterday was ${Math.round(Price).toFixed(2)}</Text>
+                <Text>The price of each share is ${Math.round(numSharePrice).toFixed(2)}</Text>
             </View>
         </View>
     );

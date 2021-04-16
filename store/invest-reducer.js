@@ -1,4 +1,4 @@
-import { ADD_INVEST, FETCH_INVEST, PRINT_INVEST } from './invest-actions';
+import { ADD_INVEST, FETCH_INVEST, PRINT_INVEST, UPDATE_INVEST } from './invest-actions';
 import * as firebase from 'firebase'
 import invest from '../model/invest';
 import moment from 'moment'
@@ -20,6 +20,18 @@ export default (state = initialState, action) => {
   }
 
   switch (action.type) {
+    case UPDATE_INVEST:
+      if(action.firebaseInvestment)
+      {
+        console.log("Working..."); 
+      }
+      else
+      {
+        console.log("Something went wrong");
+      }
+      return {
+        investments: action.firebaseInvestment
+      }
     case FETCH_INVEST:
       if(action.firebaseInvestment) {
         console.log('Fetching Investments');
@@ -27,9 +39,8 @@ export default (state = initialState, action) => {
 
       else {
         console.log("something is wrong")
+        console.log(action.investments)
       }
-
-      // console.log(action.investments)
       return {
         investments: action.firebaseInvestment
       }
@@ -48,7 +59,7 @@ export default (state = initialState, action) => {
           addedInvestment.price
         )
 
-        addInvestment({ ...state.investments, [addedInvestment.symbol] : updatedInvestment })
+        addInvestment({ ...state.investments, [addedInvestment.symbol] : updatedInvestment });
 
         return {
           investments: { ...state.investments, [addedInvestment.symbol] : updatedInvestment },

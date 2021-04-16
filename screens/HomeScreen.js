@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import * as firebase from 'firebase'
-import { StyleSheet, FlatList, Button, View } from 'react-native';
+import { StyleSheet, FlatList, Button, View, Alert } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,41 +20,62 @@ const HomeScreen = props => {
         price: state.invest.investments.price
       })
     }
-    return investmentItems
+    return investmentItems;
   })
 
 
-  const dispatch = useDispatch()
-  const userID = firebase.auth().currentUser.uid
-  const [loaded, setLoaded] = useState(props.navigation.getParam('loaded'))
+  const dispatch = useDispatch();
+  const userID = firebase.auth().currentUser.uid;
+  const [loaded, setLoaded] = useState(props.navigation.getParam('loaded'));
 
   if(loaded == 'true') {
-    // console.log('This is working!')
-    console.log(loaded)
+    console.log('This is working!')
+    console.log(loaded);
     //console.log("This is the id: " +  userID)
-    dispatch(investmentActions.fetchInvestments(userID))
-    setLoaded('false')
+    dispatch(investmentActions.fetchInvestments(userID));
+    setLoaded('false');
+  }
+  const removeInvestment = (stockSymbol) => {
+    Alert.alert("Deleting Investment", 
+                "Are you sure about this?",
+                [
+                  {
+                    text:"Yes",
+                    onPress: () => {
+                      console.log(stockSymbol);
+                      dispatch(investmentActions.deleteInvestment(userID, stockSymbol));
+                    }
+                  },
+                  {
+                    text: "No",
+                    onPress: () => console.log("Item Not removed"),
+                    style: "Cancel"
+                  }
+                ])
   }
 
   return (
-    <FlatList
-      data={investments}
-      renderItem={itemData => (
-        <InvestmentItem
-          symbol={itemData.item.symbol}
-          shares={itemData.item.shares}
-          onSelect={() => {
-            props.navigation.navigate({
-              routeName: 'StockDetails',
-              params: {
-                symbol: itemData.item.symbol,
-                shares: itemData.item.shares
-              }
-            })}
-          }
-        />
-      )}
-    />
+    <View>
+      <FlatList
+        data={investments}
+        renderItem={itemData => (
+          <InvestmentItem
+            symbol={itemData.item.symbol}
+            shares={itemData.item.shares}
+            onSelect={() => { // not long press
+              props.navigation.navigate({
+                routeName: 'StockDetails',
+                params: {
+                  symbol: itemData.item.symbol,
+                  shares: itemData.item.shares
+                }
+              })}
+            }
+            onDelete={() => removeInvestment(itemData.item.symbol)} // long press
+          />
+        )}
+      />
+    </View>
   );
 };
 
@@ -75,7 +96,7 @@ HomeScreen.navigationOptions = navData => {
 
   return {
     headerTitle: 'All Stocks',
-    headerRight: (
+    headerRight: () =>
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Investments"
@@ -85,7 +106,7 @@ HomeScreen.navigationOptions = navData => {
           }}
         />
       </HeaderButtons>
-    ),
+    ,
     headerLeft: () => (
       <View>
         <Button onPress={logOut} title='Log Out' />
