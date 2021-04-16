@@ -1,17 +1,17 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Pressable } from 'react-native'
 import Card from './Card'
 
 const InvestmentItem = props => {
     return (
-        <TouchableOpacity onPress={props.onSelect} style={styles.investItem}>
+        <Pressable onPress={props.onSelect} onLongPress={props.onDelete} style={styles.investItem}>
             <View style={styles.infoContainer}>
                 <Text style={styles.symbol}>{props.symbol}</Text>
             </View>
             <View style={styles.shareContainer}>
                 <Text style={styles.shares}>{props.shares}</Text>
             </View>
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 

@@ -13,6 +13,7 @@ const StockDetailScreen = props => {
 
     // price state
     const [Price, setPrice] = useState()
+    const [numSharePrice, setNumPrice] = useState();
 
     // LOOK at this for fetch info https://reactnative.dev/docs/network#known-issues-with-fetch-and-cookie-based-authentication
 
@@ -39,7 +40,7 @@ const StockDetailScreen = props => {
         return investmentItems
       })
 
-    const price = investments['price']
+    const price = investments["price"]
 
     function findInvestment() {
         for(const i in investments) {
@@ -52,12 +53,16 @@ const StockDetailScreen = props => {
     async function StockInfo() {
         try {
             let response = await fetch(
-                `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${timeInterval}min&apikey=${APIKey}`
+                // `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=${timeInterval}min&apikey=${APIKey}`
+                `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${APIKey}`
             );
             let responseJson = await response.json()
-            // const data = responseJson['Time Series (1min)'][date + ' 19:00:00']['4. close']
-            // console.log(responseJson['Time Series (1min)'][date + ' 20:00:00'])
-            setPrice(230.042)
+            // console.log(responseJson)
+            const data = responseJson['Global Quote']['05. price']
+            console.log(data);
+            setPrice(data);
+            setNumPrice(Number(data)/shares);
+            // console.log(numSharePrice);
         } catch(error) {
             console.error('This is the error: ', error)
         }
@@ -65,7 +70,7 @@ const StockDetailScreen = props => {
 
     useEffect(() => {
         StockInfo()
-    }, [day])
+    }, [])
 
 
     return (
@@ -78,6 +83,7 @@ const StockDetailScreen = props => {
                 <Text>You bought it at {price}</Text>
                 <Text>shares were bought at {investments.id}</Text>
                 <Text>The price yesterday was ${Math.round(Price).toFixed(2)}</Text>
+                <Text>The price of each share is ${Math.round(numSharePrice).toFixed(2)}</Text>
             </View>
         </View>
     );

@@ -25,8 +25,17 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
-
-  firebase.initializeApp(firebaseConfig)
+  const initFirebase = () => {
+    try {
+      firebase.initializeApp(firebaseConfig)
+    }
+     catch (err) {
+      if(!/already exists/.test(err.message)) {
+        console.error('Firebase Init error has occured ' + err.stack)
+      }
+    }
+  }
+  initFirebase()
 
   return (
     <Provider store={store}>

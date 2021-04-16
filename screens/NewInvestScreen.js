@@ -7,6 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import * as firebase from 'firebase'
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import * as investmentActions from '../store/invest-actions'
 
@@ -16,6 +17,8 @@ const NewInvestmentScreen = props => {
   const [symbol, setSymbol] = useState('');
   const [price, setPrice] = useState()
   const [shares, setShares] = useState('');
+  const [date, changeDate] = useState(new Date(1598051730000));
+
 
   const userId = firebase.auth().currentUser.uid
   
@@ -33,12 +36,9 @@ const NewInvestmentScreen = props => {
     setPrice(text)
   }
 
-  const fetchInvestments = () => {
-    firebase.database().ref('users/' + userId).set({
-      sym: symbol,
-      shar: shares,
-      pri: price
-    })
+  const dateChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    changeDate(currentDate);
   }
 
   const saveInvestment = () => {
@@ -62,8 +62,17 @@ const NewInvestmentScreen = props => {
                   <Text style={styles.priceText}>Price Bought</Text>
                   <TextInput placeholder='$0' style={styles.priceInput} onChangeText={priceChange} value={price} />
                 </View>
+                <View>
+                  <DateTimePicker 
+                    testID="dateTimePicker"
+                    value={date}
+                    mode="date"
+                    is24Hour={true}
+                    display="Default"
+                    onChange={dateChange}
+                  />
+                </View>
                 <Button title='Submit' style={styles.submit} onPress={saveInvestment} />
-                <Button title='Test Firebase RTB' onPress={fetchInvestments} />
             </View>
   //  </TouchableWithoutFeedback>
   );
